@@ -52,10 +52,10 @@ jobs:
         run: |
           git config --local user.name "jmorr17"
           git config --local user.email "jmorris@lakecountyco.gov"
-          git remote set-url origin https://<GH_PAT>@github.com/jmorr17/LC-Cameras-Public.git  # Hard-code the PAT for testing
+          git remote set-url origin https://GH_PAT@github.com/jmorr17/LC-Cameras-Public.git  # Hard-code the PAT for testing
           git add snapshots/
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
         env:
-          # Hard-code the Personal Access Token (PAT) here for debugging
-          # GH_PAT is no longer needed
+          # Make sure there's no extra spaces here
+          GH_PAT: ${{ secrets.GH_PAT }}  # Remove the GH_PAT usage here for debugging
