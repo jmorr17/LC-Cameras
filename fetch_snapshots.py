@@ -7,7 +7,7 @@ api_url = "https://app-api.frosttech.io/location/getByGroupAPIKey"
 api_key = "YOUR_API_KEY"  # Store this securely in GitHub Secrets
 
 # Define the locations
-locations = ["location1", "location2", "location3", "location4", "location5"]
+locations = ["467b2df2-7466-4c03-acea-2bf918994c47", "6cd567b7-1e15-40b9-8c52-b4d5ed8b6892", "9901653b-734b-43c7-9c4e-253506e9b665", "9f39b736-a675-491b-ba5c-6d1ab45c96eb", "5b061389-5e7a-49f1-9048-9c0bec194f5c"]
 
 # Calculate the current time and the time 30 minutes ago
 end_time = datetime.utcnow()
