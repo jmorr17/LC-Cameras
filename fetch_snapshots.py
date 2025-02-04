@@ -56,22 +56,22 @@ for location_id in locations:
         print(f"API Response for {location_id}: {data}")  # Print the full API response for inspection
     
         # Iterate through the list and look for the 'image_url' key
-        for item in data:
-            image_url = item.get('image_url')  # Adjust this based on the actual structure of the response
+    for item in data:
+        image_url = item.get('ImageUrl')  # Adjusting for the correct key name
     
-            if image_url:
-                # Download the image
-                image_response = requests.get(image_url)
-                if image_response.status_code == 200:
-                    # Save the image with a unique filename based on location and timestamp
-                    filename = f"{location_id}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
-                    with open(os.path.join(save_path, filename), 'wb') as f:
-                        f.write(image_response.content)
-                    print(f"Snapshot for {location_id} saved as {filename}")
-                else:
-                    print(f"Failed to download image for {location_id}.")
+        if image_url:
+            # Download the image
+            image_response = requests.get(image_url)
+            if image_response.status_code == 200:
+                # Save the image with a unique filename based on location and timestamp
+                filename = f"{location_id}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
+                with open(os.path.join(save_path, filename), 'wb') as f:
+                    f.write(image_response.content)
+                print(f"Snapshot for {location_id} saved as {filename}")
             else:
-                print(f"No image URL found for {location_id}.")
+                print(f"Failed to download image for {location_id}.")
+        else:
+            print(f"No image URL found for {location_id}.")
     else:
         print(f"Failed to retrieve data for {location_id}. HTTP Status Code: {data_response.status_code}")
 
