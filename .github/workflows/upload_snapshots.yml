@@ -39,7 +39,7 @@ jobs:
           if [ ! -d "snapshots" ]; then
             mkdir snapshots  # Create the snapshots folder if it doesn't exist
           fi
-
+          
       - name: Commit and push new snapshots to the public repo
         run: |
           git config --local user.name "jmorr17"
@@ -53,4 +53,5 @@ jobs:
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git main
         env:
-          GITHUB_TOKEN_PUBLIC: ${{ secrets.GITHUB_TOKEN_PUBLIC }}
+          GITHUB_TOKEN_PUBLIC: ${{ secrets.GH_TOKEN_PUBLIC }}
+
