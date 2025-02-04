@@ -26,6 +26,8 @@ jobs:
       - name: Fetch and save snapshots
         run: |
           python fetch_snapshots.py  # Run the Python script to fetch snapshots
+        env:
+          API_KEY: ${{ secrets.API_KEY }}  # Reference the secret here
 
       - name: Check if the snapshots directory exists
         run: |
