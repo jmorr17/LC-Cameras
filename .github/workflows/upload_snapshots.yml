@@ -46,11 +46,11 @@ jobs:
           git config --local user.email "jmorris@lakecountyco.gov"
           
           # Set the repository URL with the personal access token for authentication
-          git remote set-url origin https://$GITHUB_TOKEN@github.com/jmorr17/LC-Cameras-Public.git
+          git remote set-url origin https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git
           
           # Add, commit, and push the changes
           git add snapshots/
           git commit -m "Update camera snapshots" || echo "No changes to commit"
-          git push https://$GITHUB_TOKEN@github.com/jmorr17/LC-Cameras-Public.git main
+          git push https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN_PUBLIC: ${{ secrets.GITHUB_TOKEN_PUBLIC }}
