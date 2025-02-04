@@ -53,4 +53,4 @@ jobs:
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git main
         env:
-          GITHUB_TOKEN_PUBLIC: ${{ secrets.GH_TOKEN_PUBLIC }}
+          GITHUB_TOKEN_PUBLIC: ${{ secrets.GITHUB_TOKEN_PUBLIC }}
