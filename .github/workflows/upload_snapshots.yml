@@ -8,13 +8,6 @@ on:
 permissions:
   contents: write  # Allows write access to the repository contents
 
-resources:
-  repositories:
-    - repository: LC-Cameras-Public  # The name used to reference this repository in the checkout step
-      type: github
-      endpoint: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub's built-in secret for authentication
-      name: jmorr17/LC-Cameras-Public  # Organization or username/repository name
-
 jobs:
   fetch_snapshots:
     runs-on: ubuntu-latest
@@ -32,7 +25,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests  # Installing the requests library for API calls
-
       - name: Fetch and save snapshots
         run: |
           python fetch_snapshots.py  # Run the Python script to fetch snapshots
@@ -44,24 +36,13 @@ jobs:
           if [ ! -d "snapshots" ]; then
             mkdir snapshots  # Create the snapshots folder if it doesn't exist
           fi
-
-      # Debugging: Check current branch
-      - name: Check current branch
-        run: |
-          git branch
-
-      # Debugging: List files in the snapshots directory
-      - name: List files in the snapshots directory
-        run: |
-          ls -la snapshots/
-
-      - name: Commit and push new snapshots to public repo
+      - name: Commit and push new snapshots
         run: |
           git config --local user.name "jmorr17"
           git config --local user.email "jmorris@lakecountyco.gov"
-          git remote set-url origin https://$GH_PAT@github.com/jmorr17/LC-Cameras-Public.git  # Use the token stored in GitHub Secrets
+          git remote set-url origin https://$GH_TOKEN@github.com/jmorr17/LC-Cameras.git
           git add snapshots/
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}  # Use the token stored in GitHub Secrets
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
