@@ -2,7 +2,7 @@ name: Fetch Camera Snapshots
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour, adjust as necessary
+    - cron: '*/20 * * * *'  # Runs every 20 minutes
   workflow_dispatch:  # You can also manually trigger the workflow
 
 jobs:
