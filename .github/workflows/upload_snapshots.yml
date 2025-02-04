@@ -52,9 +52,9 @@ jobs:
         run: |
           git config --local user.name "jmorr17"
           git config --local user.email "jmorris@lakecountyco.gov"
-          git remote set-url origin https://$GH_TOKEN@github.com/jmorr17/LC-Cameras-Public.git  # Push to the public repository
+          git remote set-url origin https://$GH_PAT@github.com/jmorr17/LC-Cameras-Public.git  # Push to the public repository
           git add snapshots/
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the token stored in GitHub Secrets
+          GH_PAT: ${{ secrets.GH_PAT }}  # Use the token stored in GitHub Secrets
