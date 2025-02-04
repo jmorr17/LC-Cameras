@@ -2,8 +2,8 @@ import requests
 from datetime import datetime, timedelta
 import os
 
-# Replace with your actual Group API Key
-api_key = "YOUR_GROUP_API_KEY"  # Store this securely in GitHub Secrets
+# Get the API key from the environment variable set in GitHub Actions
+api_key = os.getenv("API_KEY")  # Fetch API key from GitHub Secrets
 
 # Define the list of locations
 locations = [
