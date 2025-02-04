@@ -5,6 +5,9 @@ on:
     - cron: '*/20 * * * *'  # Runs every 20 minutes
   workflow_dispatch:  # Allows manual trigger
 
+permissions:
+  contents: write  # Allows write access to the repository contents
+
 jobs:
   fetch_snapshots:
     runs-on: ubuntu-latest
