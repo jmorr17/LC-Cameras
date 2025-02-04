@@ -67,7 +67,7 @@ for location in locations:
                 image_response = requests.get(image_url)
                 if image_response.status_code == 200:
                     # Save the image with a unique filename based on location and timestamp
-                    filename = f"{location_name}_{location_id}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
+                    filename = f"{location_name}_{location_id}.jpg"
                     with open(os.path.join(save_path, filename), 'wb') as f:
                         f.write(image_response.content)
                     print(f"Snapshot for {location_name} saved as {filename}")
