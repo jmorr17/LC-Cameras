@@ -77,13 +77,3 @@ for location in locations:
                 print(f"No image URL found for {location_name}.")
     else:
         print(f"Failed to retrieve data for {location_name}. HTTP Status Code: {data_response.status_code}")
-
-# After saving the image
-filename = f"{location_name}_{location_id}.jpg"
-file_path = os.path.join(save_path, filename)
-
-# Generate the raw URL for GitHub
-raw_url = f"https://raw.githubusercontent.com/jmorr17/LC-Cameras/main/{file_path.replace(os.path.sep, '/')}"
-
-print(f"Snapshot for {location_name} saved as {filename}")
-print(f"Raw URL: {raw_url}")
