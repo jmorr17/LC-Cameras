@@ -1,28 +1,56 @@
-name: Upload Snapshots
+name: Fetch Camera Snapshots
 
 on:
   schedule:
     - cron: '*/60 * * * *'  # Runs every 60 minutes
   workflow_dispatch:  # Allows manual trigger
 
+permissions:
+  contents: write  # Allows write access to the repository contents
+  actions: write
+  pages: write 
+
 jobs:
-  upload:
+  fetch_snapshots:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jmorr17/LC-Cameras-Public.git
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Commit and push new snapshots
-      run: |
-        git add snapshots/
-        git commit -m "Update camera snapshots" || echo "No changes to commit"
-        git push origin main
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests  # Installing the requests library for API calls
+
+      - name: Fetch and save snapshots
+        run: |
+          python fetch_snapshots.py  # Run the Python script to fetch snapshots
+        env:
+          API_KEY: ${{ secrets.API_KEY }}  # Reference the secret here
+
+      - name: Check if the snapshots directory exists
+        run: |
+          if [ ! -d "snapshots" ]; then
+            mkdir snapshots  # Create the snapshots folder if it doesn't exist
+          fi
+          
+      - name: Commit and push new snapshots to the public repo
+        run: |
+          git config --local user.name "jmorr17"
+          git config --local user.email "jmorris@lakecountyco.gov"
+          
+          # Set the repository URL with the personal access token for authentication
+          git remote set-url origin https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git
+          
+          # Add, commit, and push the changes
+          git add snapshots/
+          git commit -m "Update camera snapshots" || echo "No changes to commit"
+          git push https://$GITHUB_TOKEN_PUBLIC@github.com/jmorr17/LC-Cameras-Public.git main
+        env:
+          GITHUB_TOKEN_PUBLIC: ${{ secrets.GH_TOKEN_PUBLIC }}
