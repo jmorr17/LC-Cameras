@@ -1,9 +1,9 @@
 name: Upload Snapshots
 
 on:
-  push:
-    paths:
-      - 'snapshots/**'
+  schedule:
+    - cron: '*/60 * * * *'  # Runs every 60 minutes
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   upload:
