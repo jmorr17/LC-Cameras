@@ -4,7 +4,7 @@ import os
 
 # Replace with your actual API URL
 api_url = "https://app-api.frosttech.io/location/getByGroupAPIKey"
-api_key = "YOUR_API_KEY"  # Store this securely in GitHub Secrets
+api_key = "API_KEY"  # Store this securely in GitHub Secrets
 
 # Define the locations
 locations = ["467b2df2-7466-4c03-acea-2bf918994c47", "6cd567b7-1e15-40b9-8c52-b4d5ed8b6892", "9901653b-734b-43c7-9c4e-253506e9b665", "9f39b736-a675-491b-ba5c-6d1ab45c96eb", "5b061389-5e7a-49f1-9048-9c0bec194f5c"]
@@ -47,7 +47,7 @@ for location in locations:
             # Download the image
             image_response = requests.get(image_url)
             if image_response.status_code == 200:
-                # Save the image with a unique filename based on timestamp
+                # Save the image with a unique filename based on location and timestamp
                 filename = f"{location}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
                 with open(os.path.join(save_path, filename), 'wb') as f:
                     f.write(image_response.content)
@@ -58,3 +58,4 @@ for location in locations:
             print(f"No image URL found for {location}.")
     else:
         print(f"Failed to retrieve data for {location}. HTTP Status Code: {response.status_code}")
+
