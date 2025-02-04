@@ -23,7 +23,7 @@ headers = {
 
 # Calculate the current time and the time 30 minutes ago (UTC format)
 end_time = datetime.utcnow()
-start_time = end_time - timedelta(minutes=60)
+start_time = end_time - timedelta(minutes=30)
 
 # Convert times to ISO 8601 strings in UTC format (e.g., "2025-02-04T15:00:00Z")
 start_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
