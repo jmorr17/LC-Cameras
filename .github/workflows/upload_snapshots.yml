@@ -3,7 +3,7 @@ name: Fetch Camera Snapshots
 on:
   schedule:
     - cron: '*/20 * * * *'  # Runs every 20 minutes
-  workflow_dispatch:  # You can also manually trigger the workflow
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   fetch_snapshots:
@@ -26,14 +26,18 @@ jobs:
       - name: Fetch and save snapshots
         run: |
           python fetch_snapshots.py  # Run the Python script to fetch snapshots
-          
-      - name: Check if there are changes to commit
-        run: |
-          git diff --quiet || echo "Changes detected"
 
-      - name: Commit and push snapshots if changes exist
+      - name: Check if the snapshots directory exists
         run: |
-          git config --local user.name "jmorr17"
-          git config --local user.email "jmorris@lakecountyco.gov"
-          git add snapshots/  # Add the downloaded snapshots
-          git diff --cached --quiet || (git commit -m "Add new camera snapshots" && git push origin main)
+          if [ ! -d "snapshots" ]; then
+            mkdir snapshots  # Create the snapshots folder if it doesn't exist
+          fi
+
+      - name: Commit and push new snapshots
+        run: |
+          git config --local user.name "Your GitHub Username"
+          git config --local user.email "your-email@example.com"
+          
+          git add snapshots/  # Add the new/updated snapshots
+          git commit -m "Update camera snapshots" || echo "No changes to commit"
+          git push origin main
