@@ -7,11 +7,11 @@ api_key = os.getenv("API_KEY")  # Fetch API key from GitHub Secrets
 
 # Define the list of locations with a name for each
 locations = [
-    {"LocationID": "467b2df2-7466-4c03-acea-2bf918994c47", "name": "Leadville Junction"},
-    {"LocationID": "6cd567b7-1e15-40b9-8c52-b4d5ed8b6892", "name": "Fire Station 2"},
+    {"LocationID": "467b2df2-7466-4c03-acea-2bf918994c47", "name": "LeadvilleJunction"},
+    {"LocationID": "6cd567b7-1e15-40b9-8c52-b4d5ed8b6892", "name": "FireStation2"},
     {"LocationID": "9901653b-734b-43c7-9c4e-253506e9b665", "name": "Halfmoon"},
-    {"LocationID": "9f39b736-a675-491b-ba5c-6d1ab45c96eb", "name": "Twin Lakes Shop"},
-    {"LocationID": "5b061389-5e7a-49f1-9048-9c0bec194f5c", "name": "Huck Finn Park"}
+    {"LocationID": "9f39b736-a675-491b-ba5c-6d1ab45c96eb", "name": "TwinLakesShop"},
+    {"LocationID": "5b061389-5e7a-49f1-9048-9c0bec194f5c", "name": "HuckFinnPark"}
 ]
 
 locations_url = "https://app-api.frosttech.io/location/getByGroupAPIKey"
