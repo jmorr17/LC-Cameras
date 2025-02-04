@@ -38,11 +38,11 @@ jobs:
             mkdir snapshots  # Create the snapshots folder if it doesn't exist
           fi
 
-      - name: Commit and push new snapshots
+      - name: Commit and push new snapshots to public repo
         run: |
           git config --local user.name "jmorr17"
           git config --local user.email "jmorris@lakecountyco.gov"
-          git remote set-url origin https://$GH_TOKEN@github.com/jmorr17/LC-Cameras.git
+          git remote set-url origin https://$GH_TOKEN@github.com/jmorr17/LC-Cameras-Public.git  # Push to the public repository
           git add snapshots/
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
