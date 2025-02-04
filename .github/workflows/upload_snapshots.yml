@@ -40,6 +40,12 @@ jobs:
           git config --local user.name "jmorr17"
           git config --local user.email "jmorris@lakecountyco.gov"
           
+          # Use GitHub token for authentication
+          git remote set-url origin https://$GH_TOKEN@github.com/jmorr17/LC-Cameras.git
+          
           git add snapshots/  # Add the new/updated snapshots
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Pass the token from secrets
+
