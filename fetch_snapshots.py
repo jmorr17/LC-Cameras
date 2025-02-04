@@ -48,15 +48,17 @@ for location_id in locations:
 
     # Send the GET request
     data_response = requests.get(data_url, headers=headers, params=params)
-
+    
     if data_response.status_code == 200:
         # The API response contains a list (not a dictionary)
         data = data_response.json()
-
+    
+        print(f"API Response for {location_id}: {data}")  # Print the full API response for inspection
+    
         # Iterate through the list and look for the 'image_url' key
         for item in data:
             image_url = item.get('image_url')  # Adjust this based on the actual structure of the response
-
+    
             if image_url:
                 # Download the image
                 image_response = requests.get(image_url)
@@ -72,3 +74,4 @@ for location_id in locations:
                 print(f"No image URL found for {location_id}.")
     else:
         print(f"Failed to retrieve data for {location_id}. HTTP Status Code: {data_response.status_code}")
+
