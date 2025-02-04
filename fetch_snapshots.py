@@ -50,22 +50,25 @@ for location_id in locations:
     data_response = requests.get(data_url, headers=headers, params=params)
 
     if data_response.status_code == 200:
-        # Assuming the response contains an image URL or sensor data
+        # The API response contains a list (not a dictionary)
         data = data_response.json()
-        image_url = data.get('image_url')  # Adjust based on actual API response structure
 
-        if image_url:
-            # Download the image
-            image_response = requests.get(image_url)
-            if image_response.status_code == 200:
-                # Save the image with a unique filename based on location and timestamp
-                filename = f"{location_id}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
-                with open(os.path.join(save_path, filename), 'wb') as f:
-                    f.write(image_response.content)
-                print(f"Snapshot for {location_id} saved as {filename}")
+        # Iterate through the list and look for the 'image_url' key
+        for item in data:
+            image_url = item.get('image_url')  # Adjust this based on the actual structure of the response
+
+            if image_url:
+                # Download the image
+                image_response = requests.get(image_url)
+                if image_response.status_code == 200:
+                    # Save the image with a unique filename based on location and timestamp
+                    filename = f"{location_id}_{start_time.strftime('%Y%m%d%H%M%S')}.jpg"
+                    with open(os.path.join(save_path, filename), 'wb') as f:
+                        f.write(image_response.content)
+                    print(f"Snapshot for {location_id} saved as {filename}")
+                else:
+                    print(f"Failed to download image for {location_id}.")
             else:
-                print(f"Failed to download image for {location_id}.")
-        else:
-            print(f"No image URL found for {location_id}.")
+                print(f"No image URL found for {location_id}.")
     else:
         print(f"Failed to retrieve data for {location_id}. HTTP Status Code: {data_response.status_code}")
