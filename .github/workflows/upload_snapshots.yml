@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write  # Allows write access to the repository contents
+  actions: write
+  pages: write 
 
 jobs:
   fetch_snapshots:
