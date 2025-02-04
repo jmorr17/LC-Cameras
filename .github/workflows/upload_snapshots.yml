@@ -38,6 +38,16 @@ jobs:
             mkdir snapshots  # Create the snapshots folder if it doesn't exist
           fi
 
+      # Debugging: Check current branch
+      - name: Check current branch
+        run: |
+          git branch
+
+      # Debugging: List files in the snapshots directory
+      - name: List files in the snapshots directory
+        run: |
+          ls -la snapshots/
+
       - name: Commit and push new snapshots to public repo
         run: |
           git config --local user.name "jmorr17"
@@ -47,4 +57,4 @@ jobs:
           git commit -m "Update camera snapshots" || echo "No changes to commit"
           git push origin main
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the token stored in GitHub Secrets
